@@ -23,17 +23,6 @@ const monthDetails = [
 	{ monthIndex: 11, name: "December", days: 31 },
 ];
 
-//below is helper to get this structure rendered
-// <div class='calendarContainer'>
-// `<div id='calendar'>
-//     <h1 id='month-name'>June</h1>
-//     <div class='month'>
-//         <div class='day'>1</div>
-//             each day has class, day of week, date, description slot for now empty
-//      </div>
-//  </div>
-// `
-
 // helper for month name and day slots divs
 const showCalendar = (monthIndex, fullCurrentMonthContainer) => {
 	// get and show month name
