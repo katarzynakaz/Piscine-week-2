@@ -5,7 +5,9 @@
 
 import { getGreeting } from "./common.mjs";
 import daysData from "./days.json" with { type: "json" };
+import { renderCalendar } from "./render-month.mjs";
 
 window.onload = function() {
-    document.querySelector("body").innerText = `${getGreeting()} - there are ${daysData.length} known days`;
+    // document.querySelector("body").innerText = `${getGreeting()} - there are ${daysData.length} known days`;
+    renderCalendar();
 }
