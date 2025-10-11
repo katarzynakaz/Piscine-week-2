@@ -4,7 +4,7 @@ const calendarContainer = document.getElementById("calendarContainer");
 //how many days in the month
 const checkHowManyDaysInCurrentMonth = () => {
 	// no leap calc for now
-	return monthDetails[5].days; // June for now hardcoded
+	return monthDetails[6].days; // June for now hardcoded
 };
 
 //array with month names to display on top of the calendar and days for day slots, also added index in case it's needed for buttons to change months
@@ -55,5 +55,5 @@ const showCalendar = (monthIndex, fullCurrentMonthContainer) => {
 //show calendar
 export const renderCalendar = () => {
 	// call helper to show month and day slots directly into existing container
-	showCalendar(5, calendarContainer); // June
+	showCalendar(6, calendarContainer); // June
 };
