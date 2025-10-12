@@ -45,7 +45,13 @@ const showCalendar = (monthIndex, fullCurrentMonthContainer) => {
 	for (let i = 1; i <= daySlots; i++) {
 		const singleDayDiv = document.createElement("div");
 		singleDayDiv.className = "day";
-		singleDayDiv.textContent = i;
+
+		singleDayDiv.innerHTML = `
+    <div class="day-number">${i}</div>
+    <span class="day-of-week">Day</span>
+    <p class="description">Description</p>
+  `;
+
 		allDaysDiv.appendChild(singleDayDiv);
 	}
 
