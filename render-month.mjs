@@ -1,5 +1,6 @@
 //grab container the calendar will be appended to
 const calendarContainer = document.getElementById("calendarContainer");
+calendarContainer.className = "calendarContainer";
 
 //how many days in the month
 const checkHowManyDaysInCurrentMonth = () => {
