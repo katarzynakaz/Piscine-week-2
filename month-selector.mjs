@@ -13,12 +13,9 @@ export function activateMonthSelector(date = new Date()) {
 
     selectorButton.addEventListener("click", () => {
         const newDate = new Date(yearSelector.value, monthSelector.value);
-        alert(newDate);
-        /*
         const calendarContainer = document.getElementById("calendarContainer");
         calendarContainer.innerHTML = '';
         renderCalendar(newDate);
-        */
     });
 }
 
