@@ -4,10 +4,12 @@
 // You can't open the index.html file using a file:// URL.
 
 import { getGreeting } from "./common.mjs";
-import daysData from "./days.json" with { type: "json" };
+//import daysData from "./days.json" with { type: "json" };
+import { activateMonthSelector } from "./month-selector.mjs";
 import { renderCalendar } from "./render-month.mjs";
 
-window.onload = function() {
+window.onload = function () {
     // document.querySelector("body").innerText = `${getGreeting()} - there are ${daysData.length} known days`;
+    activateMonthSelector(); // add events and years options to selector
     renderCalendar();
 }
