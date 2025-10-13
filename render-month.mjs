@@ -41,16 +41,29 @@ const showCalendar = (monthIndex, fullCurrentMonthContainer) => {
 	const allDaysDiv = document.createElement("div");
 	allDaysDiv.className = "monthDaysDiv";
 
+	//assuming hardcoded date is 1/7/2025, Sunday
+	const emptyDaySlotNumber = 6;
+	//create empty divs for the calendar to be correctly placed
+	const emptyDaySlotIfMonthsDoesNotStartOnMonday = "empty-day-slot";
+
+	// loop to add required emptry slots
+	for (let j = 0; j < emptyDaySlotNumber; j++) {
+		const emptyDayDiv = document.createElement("div");
+		// // add day class to empty slots to align with the rest and other class
+		emptyDayDiv.className = `day ${emptyDaySlotIfMonthsDoesNotStartOnMonday}`;
+		allDaysDiv.appendChild(emptyDayDiv);
+	}
+
 	// create day slots so allDaysDiv has all day boxes for the month
 	for (let i = 1; i <= daySlots; i++) {
 		const singleDayDiv = document.createElement("div");
 		singleDayDiv.className = "day";
 
 		singleDayDiv.innerHTML = `
-    <div class="day-number">${i}</div>
-    <span class="day-of-week">Day</span>
-    <p class="description">Description</p>
-  `;
+    <div class="day-number">${i}</div>  `;
+		// this is to apply styling to the day of the week and description
+		// <span class="day-of-week">Day</span>
+		//<p class="description">Description</p>
 
 		allDaysDiv.appendChild(singleDayDiv);
 	}

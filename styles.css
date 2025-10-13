@@ -10,7 +10,7 @@ body {
 }
 
 .calendarContainer {
-	max-width: 600px;
+	max-width: 1200px;
 	margin: 2rem;
 	padding: 1rem;
 	border: 1px solid rgb(162, 162, 162);
@@ -30,6 +30,7 @@ body {
 .monthDaysDiv {
 	display: grid;
 	/* border: 1px solid rgb(205, 205, 205); */
+	grid-template-columns: repeat(7, 1fr);
 }
 
 .day {
