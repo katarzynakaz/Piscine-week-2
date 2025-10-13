@@ -4,10 +4,12 @@
 // You can't open the index.html file using a file:// URL.
 
 import { getGreeting } from "./common.mjs";
-import daysData from "./days.json" with { type: "json" };
+//import daysData from "./days.json" with { type: "json" }; --> I have commented this line because it causes error that prevents web.mjs from loading: SyntaxError: import assertions are not currently supported
 import { renderCalendar } from "./render-month.mjs";
+import { addNavigationButtons } from "./calendarButtons.mjs";
 
-window.onload = function() {
-    // document.querySelector("body").innerText = `${getGreeting()} - there are ${daysData.length} known days`;
-    renderCalendar();
+window.onload = function () {
+    const data = new Date(); - //this line takes current date
+        renderCalendar(data);
+    addNavigationButtons();
 }
