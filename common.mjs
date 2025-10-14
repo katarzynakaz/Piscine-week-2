@@ -1,12 +1,14 @@
 // This is a placeholder file which shows how you can define functions which can be used from both a browser script and a node script. You can delete the contents of the file once you have understood how it works.
-
+import { monthSelector } from "./month-selector.mjs";
 export function getGreeting() {
     return "Hello";
 }
- export function getNthWeekday(year, month, weekday, n) {
-      const firstDay = new Date(year, month - 1, 1);
-      const firstDayOfWeek = firstDay.getDay();
-      const offset = (weekday - firstDayOfWeek + 7) % 7;
-      const date = 1 + offset + (n - 1) * 7;
-      return new Date(year, month - 1, date);
-    }
+import { activateMonthSelector } from "./month-selector.mjs";
+import { renderCalendar } from "./render-month.mjs";
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    const today = new Date();
+    renderCalendar(today);
+    activateMonthSelector(today);
+});
+

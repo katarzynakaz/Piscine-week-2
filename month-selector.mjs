@@ -10,6 +10,7 @@ export function activateMonthSelector(date = new Date()) {
     createYearSelectOptions(yearSelector, date.getFullYear());
     //set selected year option
     yearSelector.value = date.getFullYear();
+renderCalendar(date);
 
     selectorButton.addEventListener("click", () => {
         const newDate = new Date(yearSelector.value, monthSelector.value);
@@ -20,6 +21,7 @@ export function activateMonthSelector(date = new Date()) {
 }
 
 function createYearSelectOptions(yearSelector, selectedYear) {
+    yearSelector.innerHTML = '';
     for (let year = selectedYear - 200; year < selectedYear + 200; year++) {
         const opt = document.createElement("option");
         opt.value = year;

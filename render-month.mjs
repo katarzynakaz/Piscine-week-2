@@ -1,42 +1,75 @@
 import { getNthWeekday } from "./getNthWeekday.js";
 
-export async function renderCalendar(year = new Date().getFullYear(), monthIndex = new Date().getMonth()) {
-  const container = document.getElementById("calendarContainer");
-  container.innerHTML = "";
+const monthNameToNumber = {
+  January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
+  July: 7, August: 8, September: 9, October: 10, November: 11, December: 12
+};
 
+const dayNameToNumber = {
+  Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3,
+  Thursday: 4, Friday: 5, Saturday: 6
+};
+
+const occurrenceToNumber = {
+  first: 1, second: 2, third: 3, fourth: 4, fifth: 5
+};
+
+const container = document.getElementById("calendarContainer");
+
+/**
+ * Loads events from JSON and calculates their actual dates for a given year.
+ */
+async function loadEvents(year) {
   const commemorativeDays = await fetch("./days.json").then(res => res.json());
 
-  const eventsForThisYear = commemorativeDays.map(event => {
-    const dateObj = getNthWeekday(year, event.month, event.weekday, event.weekNumber);
+  return commemorativeDays.map(event => {
+    const month = monthNameToNumber[event.monthName];
+    const weekday = dayNameToNumber[event.dayName];
+    const n = occurrenceToNumber[event.occurence];
+    const dateObj = getNthWeekday(year, month, weekday, n);
+
     return {
       ...event,
       day: dateObj.getDate(),
-      year: dateObj.getFullYear()
+      month,
+      year
     };
   });
+}
 
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+/**
+ * Renders a calendar grid for the given year and month.
+ */
+export async function renderCalendar(date = new Date()) {
+  container.innerHTML = "";
 
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+  const monthNames = Object.keys(monthNameToNumber);
+
+  // Load events for this year
+  const eventsForThisYear = await loadEvents(year);
+
+  // Add title
   const title = document.createElement("h1");
   title.textContent = `${monthNames[monthIndex]} ${year}`;
   container.appendChild(title);
 
-  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const firstDay = new Date(year, monthIndex, 1);
-  const offset = (firstDay.getDay() + 6) % 7; // Monday start
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  const offset = (firstDay.getDay() + 6) % 7; // start Monday
 
   const grid = document.createElement("div");
   grid.className = "monthDaysDiv";
 
+  // Empty slots before the first day
   for (let i = 0; i < offset; i++) {
     const empty = document.createElement("div");
     empty.className = "day empty-day-slot";
     grid.appendChild(empty);
   }
 
+  // Days of the month
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement("div");
     cell.className = "day";
@@ -44,26 +77,28 @@ export async function renderCalendar(year = new Date().getFullYear(), monthIndex
     const number = document.createElement("div");
     number.className = "day-number";
     number.textContent = day;
-
     cell.appendChild(number);
 
-    const event = eventsForThisYear.find(
+    // Match commemorative event
+    const eventToday = eventsForThisYear.find(
       e => e.month === monthIndex + 1 && e.day === day
     );
 
-    if (event) {
+    if (eventToday) {
       cell.classList.add("highlight");
 
       const eventName = document.createElement("div");
       eventName.className = "holiday";
-      eventName.textContent = event.name;
-
-      const eventDescription = document.createElement("div");
-      eventDescription.className = "description";
-      eventDescription.textContent = event.description;
-
+      eventName.textContent = eventToday.name;
       cell.appendChild(eventName);
-      cell.appendChild(eventDescription);
+
+      const link = document.createElement("a");
+      link.className = "description";
+      link.href = eventToday.descriptionURL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "More info";
+      cell.appendChild(link);
     }
 
     grid.appendChild(cell);
