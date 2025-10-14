@@ -2,13 +2,13 @@ import { renderCalendar } from "./render-month.mjs";
 
 export function activateMonthSelector(date = new Date()) {
     const selectorButton = document.getElementById("selector-button");
-    //set selected Month option
     const monthSelector = document.getElementById("month-selector");
+
     monthSelector.value = date.getMonth();
 
     const yearSelector = document.getElementById("year-selector");
     createYearSelectOptions(yearSelector, date.getFullYear());
-    //set selected year option
+    
     yearSelector.value = date.getFullYear();
 renderCalendar(date);
 
