@@ -41,3 +41,40 @@ body {
 	font-weight: bold;
 	color: rgb(12, 60, 65);
 }
+
+/*-------selector-------*/
+#month-selector-container {
+	display: flex;
+	width: 100%;
+	max-width: 1200px;
+	margin: 2rem;
+	align-items: center;
+}
+
+#month-selector,
+#year-selector,
+#selector-button {
+	border: 1px solid rgb(162, 162, 162);
+	border-radius: 8px;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	padding: 1rem;
+	margin: 1rem;
+}
+
+/*-------buttons--------*/
+.buttons-container {
+	display: flex;
+	width: 100%;
+	max-width: 1200px;
+	margin: 2rem;
+	justify-content: space-between;
+}
+
+.buttons-container button {
+	border: 1px solid rgb(162, 162, 162);
+	border-radius: 8px;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	padding: 1rem;
+}
