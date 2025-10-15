@@ -16,9 +16,6 @@ const occurrenceToNumber = {
 
 const container = document.getElementById("calendarContainer");
 
-/**
- * Loads events from JSON and calculates their actual dates for a given year.
- */
 async function loadEvents(year) {
   const commemorativeDays = await fetch("./days.json").then(res => res.json());
 
@@ -37,39 +34,34 @@ async function loadEvents(year) {
   });
 }
 
-/**
- * Renders a calendar grid for the given year and month.
- */
+
 export async function renderCalendar(date = new Date()) {
   container.innerHTML = "";
+  container.setAttribute("data-renderedDate", date.toISOString()); // 👈 add this line
 
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
   const monthNames = Object.keys(monthNameToNumber);
 
-  // Load events for this year
   const eventsForThisYear = await loadEvents(year);
 
-  // Add title
   const title = document.createElement("h1");
   title.textContent = `${monthNames[monthIndex]} ${year}`;
   container.appendChild(title);
 
   const firstDay = new Date(year, monthIndex, 1);
   const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-  const offset = (firstDay.getDay() + 6) % 7; // start Monday
+  const offset = (firstDay.getDay() + 6) % 7; 
 
   const grid = document.createElement("div");
   grid.className = "monthDaysDiv";
 
-  // Empty slots before the first day
   for (let i = 0; i < offset; i++) {
     const empty = document.createElement("div");
     empty.className = "day empty-day-slot";
     grid.appendChild(empty);
   }
 
-  // Days of the month
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = document.createElement("div");
     cell.className = "day";
@@ -79,7 +71,6 @@ export async function renderCalendar(date = new Date()) {
     number.textContent = day;
     cell.appendChild(number);
 
-    // Match commemorative event
     const eventToday = eventsForThisYear.find(
       e => e.month === monthIndex + 1 && e.day === day
     );
