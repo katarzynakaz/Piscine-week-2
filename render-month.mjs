@@ -1,4 +1,5 @@
 import { getNthWeekday } from "./getNthWeekday.mjs";
+import { activateModalPopup } from "./modalPopup.mjs";
 
 const monthNameToNumber = {
   January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
@@ -90,6 +91,7 @@ export async function renderCalendar(date = new Date()) {
       link.rel = "noopener noreferrer";
       link.textContent = "More info";
       cell.appendChild(link);
+      await activateModalPopup(cell, eventToday.name, eventToday.descriptionURL);
     }
 
     grid.appendChild(cell);
