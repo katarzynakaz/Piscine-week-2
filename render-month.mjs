@@ -37,7 +37,7 @@ async function loadEvents(year) {
 
 export async function renderCalendar(date = new Date()) {
   container.innerHTML = "";
-  container.setAttribute("data-renderedDate", date.toISOString()); // 👈 add this line
+  container.setAttribute("data-renderedDate", date.toISOString()); 
 
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
@@ -83,13 +83,27 @@ export async function renderCalendar(date = new Date()) {
       eventName.textContent = eventToday.name;
       cell.appendChild(eventName);
 
-      const link = document.createElement("a");
-      link.className = "description";
-      link.href = eventToday.descriptionURL;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "More info";
-      cell.appendChild(link);
+    cell.addEventListener("click", async () => {
+      const modal = document.getElementById("eventModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalDescription = document.getElementById("modalDescription");
+      const modalLink = document.getElementById("modalLink");
+
+      modalTitle.textContent = eventToday.name;
+      modalDescription.textContent = "Loading description...";
+      modalLink.href = eventToday.descriptionURL;
+
+      modal.style.display = "block";
+
+  try {
+    const response = await fetch(eventToday.descriptionURL);
+    const text = await response.text();
+    modalDescription.textContent = text;
+  } catch (error) {
+    modalDescription.textContent = "Failed to load description.";
+  }
+});
+
     }
 
     grid.appendChild(cell);
