@@ -1,4 +1,4 @@
-import { getNthWeekday } from "./getNthWeekday.js";
+import { getNthWeekday } from "./getNthWeekday.mjs";
 
 const monthNameToNumber = {
   January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
@@ -51,7 +51,7 @@ export async function renderCalendar(date = new Date()) {
 
   const firstDay = new Date(year, monthIndex, 1);
   const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-  const offset = (firstDay.getDay() + 6) % 7; 
+  const offset = (firstDay.getDay() + 6) % 7;
 
   const grid = document.createElement("div");
   grid.className = "monthDaysDiv";
