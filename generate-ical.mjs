@@ -57,7 +57,9 @@ function generateIcal() {
       calendar.createEvent({
         summary: event.name,
         start: dateObj,
-        allDay: true
+        allDay: true,
+        description: event.description
+
       });
     });
   }
