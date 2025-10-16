@@ -9,7 +9,7 @@ body {
 	background-color: rgb(241, 254, 255);
 }
 
-.calendarContainer {
+#calendarContainer {
 	max-width: 1200px;
 	margin: 2rem;
 	padding: 1rem;
