@@ -128,3 +128,30 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    /* days shrink */
+    .day {
+        max-width: none;
+        font-size: 0.8rem;
+    }
+    
+    /* less margin */
+    #calendarContainer,
+    #month-selector-container,
+    .buttons-container {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Stack*/
+    #month-selector-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
