@@ -8,6 +8,7 @@ export function activateMonthSelector(date = new Date()) {
     const selectorButton = document.getElementById("selector-button");
     const monthSelector = document.getElementById("month-selector");
     const yearSelector = document.getElementById("year-selector");
+    const calendarContainer = document.getElementById("calendarContainer"); 
 
     monthSelector.value = date.getMonth();
     createYearSelectOptions(yearSelector, currentDate.getFullYear());
@@ -17,6 +18,7 @@ export function activateMonthSelector(date = new Date()) {
 
     selectorButton.addEventListener("click", () => {
         currentDate = new Date(yearSelector.value, monthSelector.value);
+        calendarContainer.innerHTML = ""; 
         renderCalendar(currentDate);
         updateSelectors(currentDate);
     });
@@ -26,12 +28,14 @@ export function activateMonthSelector(date = new Date()) {
 
     backwardButton.addEventListener("click", () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
+        calendarContainer.innerHTML = ""; 
         renderCalendar(currentDate);
         updateSelectors(currentDate);
     });
 
     forwardButton.addEventListener("click", () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
+        calendarContainer.innerHTML = "";
         renderCalendar(currentDate);
         updateSelectors(currentDate);
     });

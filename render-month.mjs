@@ -78,7 +78,6 @@ container.appendChild(dayHeader);
   for (let i = 0; i < offset; i++) {
     const empty = document.createElement("div");
     empty.className = "days other-month";
-    empty.textContent = prevMonthLastDay - offset + i + 1;
     grid.appendChild(empty);
   }
 
@@ -116,14 +115,7 @@ container.appendChild(dayHeader);
 
     grid.appendChild(cell);
   }
-      const totalCells = offset + daysInMonth;
-      const remaining = (7 - (totalCells % 7)) % 7;
-      for (let i = 1; i <= remaining; i++) {
-        const empty = document.createElement("div");
-        empty.className = "day other-month";
-        empty.textContent = i; 
-        grid.appendChild(empty);
-      }
+ 
 
   container.appendChild(grid);
 }
