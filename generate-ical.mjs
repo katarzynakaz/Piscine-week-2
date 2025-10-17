@@ -1,5 +1,5 @@
 
-
+import fetch from 'node-fetch';
 import daysData from "./days.json" with { type: "json" };
 
 import fs from 'fs';
@@ -26,14 +26,16 @@ const occurrenceToNumber = {
 };
 
 
-function generateIcal() {
+async function generateIcal() {
   const calendar = new ICalCalendar();
 
   for (let year = startYear; year <= endYear; year++) {
-    daysData.forEach(event => {
+    for (const event of daysData) {
       const month = monthNameToNumber[event.monthName];
       const weekday = dayNameToNumber[event.dayName];
       let n = occurrenceToNumber[event.occurence];
+      let descriptionurl = await (fetch(event.descriptionURL));
+      let description = await descriptionurl.text()
 
       if (n === -1) {
         const fifthTry = getNthWeekday(year, month, weekday, 5);
@@ -52,10 +54,10 @@ function generateIcal() {
         summary: event.name,
         start: dateObj,
         allDay: true,
-        description: event.description
+        description: description
 
       });
-    });
+    };
   }
 
 fs.writeFileSync(outputFile, calendar.toString());
