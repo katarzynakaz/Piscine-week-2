@@ -36,13 +36,15 @@ function generateIcal() {
       let n = occurrenceToNumber[event.occurence];
 
       if (n === -1) {
-      const fifthTry = getNthWeekday(year, month, weekday, 5);
-      if (fifthTry.getMonth() + 1 === month) {
-        n = 5;
-      } else {
-            n = 4;
+        const fifthTry = getNthWeekday(year, month, weekday, 5);
+
+        if (fifthTry && fifthTry.getMonth() + 1 === month) {
+          n = 5;
+        } else {
+          n = 4;
         }
-        }   
+      }
+
 
       const dateObj = getNthWeekday(year, month, weekday, n);
 
