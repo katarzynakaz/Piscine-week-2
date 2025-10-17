@@ -35,9 +35,11 @@ body {
 	border: 1px solid rgb(205, 205, 205);
 	padding: 0.5rem;
 	aspect-ratio: 1;
-	max-width: 200px;
 	font-weight: bold;
 	color: rgb(12, 60, 65);
+	word-break: break-word;   
+    overflow-wrap: break-word;
+	overflow: hidden;
 }
 
 #month-selector-container {
@@ -126,7 +128,7 @@ body {
 
 @media (max-width: 768px) {
     .day {
-        max-width: none;
+        
         font-size: 0.8rem;
     }
     
@@ -159,4 +161,9 @@ body {
 .other-month {
   opacity: 0.5;
   color: gray;
+}
+
+
+.description {
+	color: navy;
 }
