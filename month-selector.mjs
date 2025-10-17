@@ -15,14 +15,12 @@ export function activateMonthSelector(date = new Date()) {
 
     renderCalendar(currentDate);
 
-    // Jump to selected date
     selectorButton.addEventListener("click", () => {
         currentDate = new Date(yearSelector.value, monthSelector.value);
         renderCalendar(currentDate);
         updateSelectors(currentDate);
     });
 
-    // Previous / Next buttons
     const backwardButton = document.getElementById("backwardButton");
     const forwardButton = document.getElementById("forwardButton");
 
