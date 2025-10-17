@@ -37,8 +37,8 @@ async function loadEvents(year) {
 
 
 export async function renderCalendar(date = new Date()) {
-  container.innerHTML = "";
-  container.setAttribute("data-renderedDate", date.toISOString()); // 👈 add this line
+  container.innerText = "";
+  container.setAttribute("data-renderedDate", date.toISOString()); 
 
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
@@ -50,16 +50,35 @@ export async function renderCalendar(date = new Date()) {
   title.textContent = `${monthNames[monthIndex]} ${year}`;
   container.appendChild(title);
 
-  const firstDay = new Date(year, monthIndex, 1);
-  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-  const offset = (firstDay.getDay() + 6) % 7;
+  
+    const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const dayHeader = document.createElement("div");
+    dayHeader.className = "day-header-row";
+
+dayNames.forEach(name => {
+  const headerCell = document.createElement("div");
+  headerCell.className = "day-header";
+  headerCell.textContent = name;
+  dayHeader.appendChild(headerCell);
+});
+
+container.appendChild(dayHeader);
+
 
   const grid = document.createElement("div");
   grid.className = "monthDaysDiv";
 
+  const firstDay = new Date(year, monthIndex, 1);
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  const offset = (firstDay.getDay() + 6) % 7;
+  
+  const prevMonth = new Date(year, monthIndex, 0);
+  const prevMonthLastDay = prevMonth.getDate();
+
   for (let i = 0; i < offset; i++) {
     const empty = document.createElement("div");
-    empty.className = "day empty-day-slot";
+    empty.className = "days other-month";
+    empty.textContent = prevMonthLastDay - offset + i + 1;
     grid.appendChild(empty);
   }
 
@@ -91,11 +110,20 @@ export async function renderCalendar(date = new Date()) {
       link.rel = "noopener noreferrer";
       link.textContent = "More info";
       cell.appendChild(link);
+
       await activateModalPopup(cell, eventToday.name, eventToday.descriptionURL);
     }
 
     grid.appendChild(cell);
   }
+      const totalCells = offset + daysInMonth;
+      const remaining = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remaining; i++) {
+        const empty = document.createElement("div");
+        empty.className = "day other-month";
+        empty.textContent = i; 
+        grid.appendChild(empty);
+      }
 
   container.appendChild(grid);
 }

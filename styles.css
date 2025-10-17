@@ -128,3 +128,18 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
+.day-header-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  padding: 5px 0;
+}
+
+.day-header {
+  border-bottom: 2px solid #ccc;
+}
+.other-month {
+  color: #aaa;
+}
